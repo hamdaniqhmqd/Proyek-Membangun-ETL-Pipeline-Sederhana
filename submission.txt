@@ -1,0 +1,15 @@
+Cara menjalankan skrip ETL pipeline:
+1. Pastikan semua dependensi seperti requests, beautifulsoup4, pandas, dan psycopg2 telah terinstall.
+2. Jalankan perintah berikut di terminal pada direktori proyek:
+   python main.py
+
+Cara menjalankan unit test pada skrip yang dibuat:
+1. Pastikan unittest sudah tersedia (biasanya sudah built-in di Python).
+2. Jalankan perintah berikut di terminal:
+   python -m unittest discover tests
+
+Cara menjalankan test coverage:
+1. Pastikan package coverage sudah terinstall (`pip install coverage`).
+2. Jalankan perintah berikut:
+   coverage run -m unittest discover tests
+   coverage report -m
