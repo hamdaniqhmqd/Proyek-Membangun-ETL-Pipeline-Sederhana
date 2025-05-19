@@ -6,7 +6,6 @@ def clean_and_transform_data(product_data: list) -> pd.DataFrame:
     """Membersihkan dan mengubah data mentah produk ke format DataFrame yang bersih."""
 
     if not product_data:
-        # Kembalikan DataFrame kosong jika data kosong
         return pd.DataFrame(columns=['title', 'price', 'rating', 'colors', 'size', 'gender', 'timestamp'])
 
     df = pd.DataFrame(product_data)
@@ -21,7 +20,7 @@ def clean_and_transform_data(product_data: list) -> pd.DataFrame:
     df['price'] = df['price'].astype(float) * 16000
 
     # Bersihkan dan ubah kolom rating menjadi float
-    df['rating'] = df['rating'].replace(r'[^0-9.]', '', regex=True).replace('', np.nan)
+    df['rating'] = df['rating'].astype(str).str.extract(r'(\d+\.\d+|\d+)').replace('', np.nan)
     df.dropna(subset=['rating'], inplace=True)
     df['rating'] = df['rating'].astype(float)
 

@@ -16,21 +16,16 @@ class TestLoad(unittest.TestCase):
         df = pd.DataFrame({'col1': [1], 'col2': [2]})
         mock_engine = MagicMock()
         mock_create_engine.return_value = mock_engine
-
+        
         with patch.object(df, 'to_sql') as mock_to_sql, patch('builtins.print') as mock_print:
             save_to_postgresql(df, 'products')
-
-            username = 'postgres'
-            password = 'ahmad_jupiter'
-            host = 'localhost'
-            port = '5432'
-            database = 'product_db'
-
+            
             mock_create_engine.assert_called_once_with(
-                f'postgresql+psycopg2://{username}:{password}@{host}:{port}/{database}'
+                'postgresql+psycopg2://postgres:ahmad_jupiter@localhost:5432/product_db'
             )
+            
             mock_to_sql.assert_called_once_with('products', mock_engine, if_exists='replace', index=False)
-            mock_print.assert_any_call("Data berhasil disimpan ke PostgreSQL, tabel: 'products'")
+            mock_print.assert_called_with("Data berhasil disimpan ke PostgreSQL, tabel: 'products'")
 
     @patch('utils.load.create_engine')
     def test_save_to_postgresql_gagal(self, mock_create_engine):
